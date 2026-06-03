@@ -10,7 +10,7 @@ jobs:
       contents: read
       id-token: write
       pull-requests: write
-    uses: NikolaiKleppe/common-solutions/blob/main/.github/workflows/terraform-deploy-template.yml@main
+    uses: NikolaiKleppe/common-solutions/.github/workflows/terraform-deploy-template.yml@main
     with:
       terraform_working_directory: terraform/gh-action-examples/deploy-sub-scope
       tfvars_file: terraform.tfvars
