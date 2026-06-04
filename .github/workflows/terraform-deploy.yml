@@ -3,6 +3,9 @@ name: Deploy Subscription Scope
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   terraform:
@@ -14,7 +17,7 @@ jobs:
     with:
       terraform_working_directory: terraform/reusable-workflow-example
       tfvars_file: terraform.tfvars
-      run_apply: false
+      run_apply: true
       terraform_version: 1.15.5
       apply_environment_name: terraform-apply-no-gate
 
