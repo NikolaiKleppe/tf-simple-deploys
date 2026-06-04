@@ -14,9 +14,9 @@ jobs:
     with:
       terraform_working_directory: terraform/reusable-workflow-example
       tfvars_file: terraform.tfvars
-      run_apply: false
+      run_apply: true
       terraform_version: 1.15.5
-      apply_environment_name: terraform-apply-no-gate
+      apply_environment_name: terraform-apply
 
       azure_subscription_id: c33f9068-3058-4127-a12d-d44382efa830
 
