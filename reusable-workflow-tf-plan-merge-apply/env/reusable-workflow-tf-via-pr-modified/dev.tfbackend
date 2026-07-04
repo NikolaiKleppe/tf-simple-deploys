@@ -1,0 +1,6 @@
+
+resource_group_name  = "rg-common-solutions-tfstate"
+storage_account_name = "tfstatecommontc7iagly"
+container_name       = "tfstate"
+key                  = "github/reusable-workflow-tf-via-pr-modified/terraform.tfstate"
+

@@ -1,0 +1,31 @@
+name: Call reusable workflow
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  terraform:
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+      actions: read
+    uses: NikolaiKleppe/reusable-workflow-tf-via-pr-modified/.github/workflows/terraform-deploy.yaml@pr-2
+    with:
+      terraform_version: "1.9.8"
+      working_directory: reusable-workflow-tf-plan-merge-apply
+      tf_var_file: env/dev/dev.tfvars
+      backend_config_file: env/dev/dev.tfbackend
+      apply_on_pr: false
+      apply_on_merge: true
+      artifact_retention_days: 7
+      azure_client_id: ${{ vars.AZURE_CLIENT_ID }}
+      azure_tenant_id: ${{ vars.AZURE_TENANT_ID }}
+      azure_subscription_id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+
+
+
