@@ -17,7 +17,7 @@ jobs:
     uses: NikolaiKleppe/reusable-workflow-tf-via-pr-modified/.github/workflows/terraform-deploy.yaml@pr-2
     with:
       terraform_version: "1.9.8"
-      working_directory: .
+      working_directory: reusable-workflow-tf-plan-merge-apply
       tf_var_file: env/dev/dev.tfvars
       backend_config_file: env/dev/dev.tfbackend
       apply_on_pr: false
