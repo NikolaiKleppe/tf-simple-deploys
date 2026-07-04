@@ -1,8 +1,8 @@
 on:
   pull_request:
   merge_group:
-  push:
-    branches: [main]
+  # push:
+  #   branches: [main]
 
 jobs:
   provision:
@@ -34,7 +34,7 @@ jobs:
           working-directory: reusable-workflow-tf-plan-merge-apply
           command: ${{ github.event_name == 'merge_group' && 'apply' || 'plan' }}
           # command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
-          # arg-lock: ${{ github.event_name == 'push' }}
           arg-backend-config: env/dev/dev.tfbackend
           arg-var-file: env/dev/dev.tfvars
           #plan-encrypt: ${{ secrets.PASSPHRASE }}
+
