@@ -10,7 +10,7 @@ on:
 
 jobs:
   terraform:
-    uses: NikolaiKleppe/reusable-workflow-tf-via-pr-modified/.github/workflows/terraform-deploy.yml@pr-2
+    uses: NikolaiKleppe/reusable-workflow-tf-via-pr-modified/.github/workflows/terraform-deploy.yaml@pr-2
     with:
       terraform_version: 1.15.7
       working_directory: terraform
