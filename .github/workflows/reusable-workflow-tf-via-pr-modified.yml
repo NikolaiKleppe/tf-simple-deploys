@@ -13,6 +13,7 @@ jobs:
       contents: read
       id-token: write
       pull-requests: write
+      actions: read
     uses: NikolaiKleppe/reusable-workflow-tf-via-pr-modified/.github/workflows/terraform-deploy.yaml@pr-2
     with:
       terraform_version: "1.9.8"
