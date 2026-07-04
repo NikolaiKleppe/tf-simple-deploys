@@ -1,8 +1,7 @@
 on:
   pull_request:
-  merge_group:
-  # push:
-  #   branches: [main]
+  push:
+    branches: [main]
 
 jobs:
   provision:
@@ -33,18 +32,7 @@ jobs:
         if: ${{ github.event_name != 'merge_group' }}
         with:
           working-directory: reusable-workflow-tf-plan-merge-apply
-          command: plan
-          arg-backend-config: env/dev/dev.tfbackend
-          arg-var-file: env/dev/dev.tfvars
-          #plan-encrypt: ${{ secrets.PASSPHRASE }}
-
-      # Run apply for merge queue runs.
-      - uses: op5dev/tf-via-pr@v13
-        if: ${{ github.event_name == 'merge_group' }}
-        with:
-          working-directory: reusable-workflow-tf-plan-merge-apply
-          command: apply
-          arg-lock: true
+          command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
           arg-backend-config: env/dev/dev.tfbackend
           arg-var-file: env/dev/dev.tfvars
           #plan-encrypt: ${{ secrets.PASSPHRASE }}
