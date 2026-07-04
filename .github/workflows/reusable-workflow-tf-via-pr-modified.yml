@@ -8,7 +8,11 @@ on:
     branches: [ main ]
 
 jobs:
-  call-terraform:
+  terraform:
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
     uses: NikolaiKleppe/reusable-workflow-tf-via-pr-modified/.github/workflows/terraform-deploy.yaml@pr-2
     with:
       terraform_version: "1.9.8"
