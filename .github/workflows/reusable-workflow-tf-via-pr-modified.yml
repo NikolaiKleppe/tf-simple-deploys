@@ -4,10 +4,12 @@ on:
   workflow_dispatch:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   call-terraform:
-    uses: NikolaiKleppe/reusable-workflow-tf-via-pr-modified/.github/workflows/terraform-deploy.yaml@c7d9decea2bae91a29b77802726213af91fec392
+    uses: NikolaiKleppe/reusable-workflow-tf-via-pr-modified/.github/workflows/terraform-deploy.yaml@pr-2
     with:
       terraform_version: "1.9.8"
       working_directory: terraform
