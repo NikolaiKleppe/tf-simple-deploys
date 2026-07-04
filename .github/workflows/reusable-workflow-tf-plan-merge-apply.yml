@@ -1,13 +1,8 @@
 on:
   pull_request:
-    paths:
-      - ".github/workflows/reusable-workflow-tf-plan-merge-apply.yml"
-      - 'reusable-workflow-tf-plan-merge-apply/**'
+  merge_group:
   push:
     branches: [main]
-    paths:
-      - ".github/workflows/reusable-workflow-tf-plan-merge-apply.yml"
-      - 'reusable-workflow-tf-plan-merge-apply/**'
 
 jobs:
   provision:
@@ -37,8 +32,9 @@ jobs:
       - uses: op5dev/tf-via-pr@v13
         with:
           working-directory: ./reusable-workflow-tf-plan-merge-apply
-          command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
-          arg-lock: ${{ github.event_name == 'push' }}
+          command: ${{ github.event_name == 'merge_group' && 'apply' || 'plan' }}
+          # command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
+          # arg-lock: ${{ github.event_name == 'push' }}
           arg-backend-config: env/dev/dev.tfbackend
           arg-var-file: env/dev/dev.tfvars
           #plan-encrypt: ${{ secrets.PASSPHRASE }}
