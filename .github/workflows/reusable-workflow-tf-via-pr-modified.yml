@@ -28,3 +28,4 @@ jobs:
       azure_subscription_id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
 
+
