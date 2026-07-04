@@ -1,0 +1,40 @@
+on:
+  pull_request:
+    paths:
+      - 'reusable-workflow-tf-plan-merge-apply/**'
+  push:
+    branches: [main]
+    paths:
+      - 'reusable-workflow-tf-plan-merge-apply/**'
+
+jobs:
+  provision:
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read        # Required to identify workflow run.
+      checks: write        # Required to add status summary.
+      contents: read       # Required to checkout repository.
+      pull-requests: write # Required to add PR comment.
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: azure/login@v2
+        with:
+          client-id: ${{ vars.AZURE_CLIENT_ID }}
+          tenant-id: ${{ vars.AZURE_TENANT_ID }}
+
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_wrapper: false
+
+      # Run plan by default, or apply on merge.
+      - uses: op5dev/tf-via-pr@v13
+        with:
+          working-directory: .
+          command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
+          arg-lock: ${{ github.event_name == 'push' }}
+          arg-backend-config: env/dev/dev.tfbackend
+          arg-var-file: env/dev/dev.tfvars
+          #plan-encrypt: ${{ secrets.PASSPHRASE }}
