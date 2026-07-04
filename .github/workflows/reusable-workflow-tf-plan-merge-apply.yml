@@ -1,11 +1,13 @@
 on:
   pull_request:
     paths:
-      - '**/reusable-workflow-tf-plan-merge-apply/**'
+      - ".github/workflows/reusable-workflow-tf-plan-merge-apply.yml"
+      - 'reusable-workflow-tf-plan-merge-apply/**'
   push:
     branches: [main]
     paths:
-      - '**/reusable-workflow-tf-plan-merge-apply/**'
+      - ".github/workflows/reusable-workflow-tf-plan-merge-apply.yml"
+      - 'reusable-workflow-tf-plan-merge-apply/**'
 
 jobs:
   provision:
