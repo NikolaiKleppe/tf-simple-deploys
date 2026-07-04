@@ -1,41 +1,41 @@
-on:
-  pull_request:
-  push:
-    branches: [main]
+# on:
+#   pull_request:
+#   push:
+#     branches: [main]
 
-jobs:
-  provision:
-    runs-on: ubuntu-latest
+# jobs:
+#   provision:
+#     runs-on: ubuntu-latest
 
-    permissions:
-      actions: read        # Required to identify workflow run.
-      checks: write        # Required to add status summary.
-      contents: read       # Required to checkout repository.
-      id-token: write      # Required for Azure OIDC login.
-      pull-requests: write # Required to add PR comment.
+#     permissions:
+#       actions: read        # Required to identify workflow run.
+#       checks: write        # Required to add status summary.
+#       contents: read       # Required to checkout repository.
+#       id-token: write      # Required for Azure OIDC login.
+#       pull-requests: write # Required to add PR comment.
 
-    steps:
-      - uses: actions/checkout@v6
+#     steps:
+#       - uses: actions/checkout@v6
 
-      - uses: azure/login@v2
-        with:
-          allow-no-subscriptions: true
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+#       - uses: azure/login@v2
+#         with:
+#           allow-no-subscriptions: true
+#           client-id: ${{ secrets.AZURE_CLIENT_ID }}
+#           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
 
-      - uses: hashicorp/setup-terraform@v4
-        with:
-          terraform_wrapper: false
+#       - uses: hashicorp/setup-terraform@v4
+#         with:
+#           terraform_wrapper: false
 
-      # Run plan for regular PR validation.
-      - uses: op5dev/tf-via-pr@v13
-        if: ${{ github.event_name != 'merge_group' }}
-        with:
-          working-directory: reusable-workflow-tf-plan-merge-apply
-          command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
-          arg-backend-config: env/dev/dev.tfbackend
-          arg-var-file: env/dev/dev.tfvars
-          #plan-encrypt: ${{ secrets.PASSPHRASE }}
+#       # Run plan for regular PR validation.
+#       - uses: op5dev/tf-via-pr@v13
+#         if: ${{ github.event_name != 'merge_group' }}
+#         with:
+#           working-directory: reusable-workflow-tf-plan-merge-apply
+#           command: ${{ github.event_name == 'push' && 'apply' || 'plan' }}
+#           arg-backend-config: env/dev/dev.tfbackend
+#           arg-var-file: env/dev/dev.tfvars
+#           #plan-encrypt: ${{ secrets.PASSPHRASE }}
 
 
 
