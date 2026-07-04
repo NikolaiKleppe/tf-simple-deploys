@@ -1,5 +1,5 @@
 resource "random_pet" "name" {
-	length = var.length
+	length = var.random_length
 }
 
 output "pet_name" {
