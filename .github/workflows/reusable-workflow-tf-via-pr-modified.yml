@@ -1,23 +1,21 @@
-name: Terraform Deploy Caller
+name: Call reusable workflow
 
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  terraform:
-    uses: NikolaiKleppe/reusable-workflow-tf-via-pr-modified/.github/workflows/terraform-deploy.yaml@pr-2
+  call-terraform:
+    uses: NikolaiKleppe/reusable-workflow-tf-via-pr-modified/.github/workflows/terraform-deploy.yaml@c7d9decea2bae91a29b77802726213af91fec392
     with:
-      terraform_version: 1.15.7
+      terraform_version: "1.9.8"
       working_directory: terraform
-      tf_var_file: env/reusable-workflow-tf-via-pr-modified/dev.tfvars
-      backend_config_file: env/reusable-workflow-tf-via-pr-modified/dev.tfbackend
-      apply_on_pr: true
-      apply_on_merge: false
+      tf_var_file: env/dev/dev.tfvars
+      backend_config_file: env/dev/dev.tfbackend
+      apply_on_pr: false
+      apply_on_merge: true
       artifact_retention_days: 7
       azure_client_id: ${{ vars.AZURE_CLIENT_ID }}
       azure_tenant_id: ${{ vars.AZURE_TENANT_ID }}
+      azure_subscription_id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
