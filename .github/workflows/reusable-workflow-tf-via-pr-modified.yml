@@ -18,8 +18,8 @@ jobs:
     with:
       terraform_version: "1.9.8"
       working_directory: reusable-workflow-tf-plan-merge-apply
-      tf_var_file: reusable-workflow-tf-plan-merge-apply/env/dev.tfvars
-      backend_config_file: reusable-workflow-tf-plan-merge-apply/env/dev.tfbackend
+      tf_var_file: reusable-workflow-tf-plan-merge-apply\env\reusable-workflow-tf-via-pr-modified\dev.tfvars
+      backend_config_file: reusable-workflow-tf-plan-merge-apply\env\reusable-workflow-tf-via-pr-modified\dev.tfbackend
 
       apply_on_pr: true
       apply_on_merge: false
