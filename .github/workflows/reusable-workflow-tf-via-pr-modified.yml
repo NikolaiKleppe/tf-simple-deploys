@@ -20,8 +20,8 @@ jobs:
       working_directory: reusable-workflow-tf-plan-merge-apply
       tf_var_file: env/dev/dev.tfvars
       backend_config_file: env/dev/dev.tfbackend
-      apply_on_pr: false
-      apply_on_merge: true
+      apply_on_pr: true
+      apply_on_merge: false
       artifact_retention_days: 7
       azure_client_id: ${{ vars.AZURE_CLIENT_ID }}
       azure_tenant_id: ${{ vars.AZURE_TENANT_ID }}
